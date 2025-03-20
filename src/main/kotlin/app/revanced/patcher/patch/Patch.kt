@@ -564,7 +564,9 @@ sealed class PatchLoader private constructor(
         patchesFiles: Set<File>,
         getBinaryClassNames: (patchesFile: File) -> List<String>,
         classLoader: ClassLoader,
-    ) : this(classLoader.loadPatches(patchesFiles.associateWith { getBinaryClassNames(it).toSet() }))
+    ) : this(classLoader.loadPatches(patchesFiles.associateWith {
+        getBinaryClassNames(it).toSet().onEach { t -> println(t) }
+    }))
 
     /**
      * A [PatchLoader] for JAR files.
